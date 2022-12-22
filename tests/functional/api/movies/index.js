@@ -36,6 +36,20 @@ describe("Movies endpoint", () => {
   afterEach(() => {
     api.close(); // Release PORT 8080
   });
+  describe("GET /api/movies/tmdb/discover ", () => {
+    it("should return 20 movies and a status 200", (done) => {
+      request(api)
+        .get("/api/movies/tmdb/discover")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.results).to.be.a("array");
+          expect(res.body.results.length).to.equal(20);
+          done();
+        });
+    });
+  });
   describe("GET /api/movies/tmdb/upcoming ", () => {
     it("should return 20 movies and a status 200", (done) => {
       request(api)
@@ -50,32 +64,97 @@ describe("Movies endpoint", () => {
         });
     });
   });
-
-  describe("GET /api/movies/:id", () => {
-    describe("when the id is valid", () => {
+  describe("GET /api/movies/tmdb/now-playing ", () => {
+    it("should return 20 movies and a status 200", (done) => {
+      request(api)
+        .get("/api/movies/tmdb/now-playing")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.results).to.be.a("array");
+          expect(res.body.results.length).to.equal(20);
+          done();
+        });
+    });
+  });
+  describe("GET /api/movies/tmdb/top-rated ", () => {
+    it("should return 20 movies and a status 200", (done) => {
+      request(api)
+        .get("/api/movies/tmdb/top-rated")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.results).to.be.a("array");
+          expect(res.body.results.length).to.equal(20);
+          done();
+        });
+    });
+  });
+  describe("GET /api/movies/tmdb/trending ", () => {
+    it("should return 20 movies and a status 200", (done) => {
+      request(api)
+        .get("/api/movies/tmdb/trending")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.results).to.be.a("array");
+          expect(res.body.results.length).to.equal(20);
+          done();
+        });
+    });
+  });
+  describe("GET /api/movies/tmdb/movie/:id", () => {
       it("should return the matching movie", () => {
         return request(api)
-          .get(`/api/movies/${movies[0].id}`)
+          .get(`/api/movies/tmdb/movie/436270`)
           .set("Accept", "application/json")
           .expect("Content-Type", /json/)
           .expect(200)
           .then((res) => {
-            expect(res.body).to.have.property("title", movies[0].title);
+            expect(res.body).to.have.property("title", "Black Adam");
           });
       });
-    });
-    describe("when the id is invalid", () => {
-      it("should return the NOT found message", () => {
+  });
+  describe("GET /api/movies/tmdb/movie/:id/similar", () => {
+      it("should return similar movies", () => {
         return request(api)
-          .get("/api/movies/9999")
+          .get(`/api/movies/tmdb/movie/436270/similar`)
           .set("Accept", "application/json")
           .expect("Content-Type", /json/)
-          .expect(404)
-          .expect({
-            status_code: 404,
-            message: "The resource you requested could not be found.",
+          .expect(200)
+          .then((res) => {
+            expect(res.body.results).to.be.a("array");
+            expect(res.body.results.length).to.equal(20);
+          });
+    });
+  });
+    describe("GET /api/movies/tmdb/movie/:id/recommended", () => {
+      it("should return recommended movies", () => {
+        return request(api)
+          .get(`/api/movies/tmdb/movie/436270/recommended`)
+          .set("Accept", "application/json")
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then((res) => {
+            expect(res.body.results).to.be.a("array");
+            expect(res.body.results.length).to.equal(21);
           });
       });
     });
+    describe("GET /api/movies/tmdb/movie/436270/credits", () => {
+      it("should return the list of actors assosiated with a movie", () => {
+        return request(api)
+          .get(`/api/movies/tmdb/movie/436270/credits`)
+          .set("Accept", "application/json")
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then((res) => {
+            expect(res.body.cast[0]).to.have.property("name", "Dwayne Johnson");
+          });
+      });
   });
-});
+  });
+
