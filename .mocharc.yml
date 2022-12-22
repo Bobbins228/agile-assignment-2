@@ -1,4 +1,5 @@
 file:
+    - 'tests/functional/api/genres/index.js'
     - 'tests/functional/api/users/index.js'
     - 'tests/functional/api/movies/index.js'
 require: '@babel/register'
