@@ -25,8 +25,8 @@ async function loadReviews() {
   console.log('load review Data');
   try {
     await reviewModel.deleteMany();
-    await reviewModel.collection.insertMany(reviews);
-    console.info(`${reviews.length} reviews were successfully stored.`);
+    await reviewModel.collection.insertMany(reviews)
+    .then(console.info(`${reviews.length} reviews were successfully stored.`))
   } catch (err) {
     console.error(`failed to Load review Data: ${err}`);
   }
@@ -50,7 +50,6 @@ export async function loadMovies() {
   try {
     await movieModel.deleteMany();
     await movieModel.collection.insertMany(movies);
-    console.info(`${movies.length} Movies were successfully stored.`);
   } catch (err) {
     console.error(`failed to Load movie Data: ${err}`);
   }

@@ -32,7 +32,7 @@ router.post('/:username/movie/:id/reviews', asyncHandler(async (req, res) => {
     if (movieReviews.length > 0) {
         req.body.updated_at = new Date();
         const result = await Review.updateOne({
-            movieId: req.params.id,
+            _id: req.params._id
         }, req.body);
         if (result.matchedCount) {
             res.status(200).json({ code:200, msg: 'Review Updated Sucessfully' });
