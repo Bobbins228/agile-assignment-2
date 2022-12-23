@@ -31,10 +31,19 @@ describe("Users endpoint", () => {
       await request(api).post("/api/users?action=register").send({
         username: "user1",
         password: "test1",
+        favourites: 
+        [
+          436270,
+          64690
+        ]
       });
       await request(api).post("/api/users?action=register").send({
         username: "user2",
         password: "test2",
+        favourites: 
+        [
+          988233
+        ]
       });
     } catch (err) {
       console.error(`failed to Load user test Data: ${err}`);
@@ -105,5 +114,63 @@ describe("Users endpoint", () => {
         });
       });
     });
+    describe("GET /api/users/:userName/favourites", () => {
+      it("should return user1's favourites and status 200", (done) => {
+        request(api)
+        .get("/api/users/user1/favourites")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.be.a("array");
+          expect(res.body).to.include(64690)
+          done();
+        });
+      });
+    });
+    describe("POST /api/users/:userName/favourites", () => {
+      it("should add a movie id to user2's favourites and status 201", () => {
+        return request(api)
+        .post("/api/users/user2/favourites")
+        .send({movie: 64690})
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(201)
+        .expect({ msg: "Favourite added Sucessfully", code: 201 });
+      });
+      after(() => {
+        return request(api)
+          .get("/api/users/user2/favourites")
+          .set("Accept", "application/json")
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then((res) => {
+            expect(res.body.length).to.equal(2);
+            expect(res.body).to.include(64690);
+          });
+      });
+    });
+    describe("POST /api/users/:userName/movie/:id/favourites", () => {
+      it("should remove a movie id from user1's favourites and status 201", () => {
+        return request(api)
+        .post("/api/users/user1/movie/64690/favourites")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(201)
+        .expect({ msg: "Favourite deleted Sucessfully", code: 201 });
+      });
+      after(() => {
+        return request(api)
+          .get("/api/users/user1/favourites")
+          .set("Accept", "application/json")
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then((res) => {
+            expect(res.body.length).to.equal(1);
+            expect(res.body).to.include(436270);
+          });
+      });
+    })
   });
-});
+  });
+

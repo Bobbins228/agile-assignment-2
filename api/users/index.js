@@ -69,7 +69,7 @@ router.post('/:userName/favourites', asyncHandler(async (req, res) => {
     }
     await user.favourites.push(movie.id);
     await user.save(); 
-    return res.status(201).json(user); 
+    return res.status(201).json({ msg: "Favourite added Sucessfully", code: 201 }); 
   }));
 
 //Delete a favourite
@@ -80,7 +80,7 @@ router.post('/:username/movie/:id/favourites', asyncHandler(async (req, res) => 
   const index = user.favourites.indexOf(newFavourite)
   await user.favourites.splice(index, 1);
   await user.save(); 
-  return res.status(201).json(user); 
+  return res.status(201).json({ msg: "Favourite deleted Sucessfully", code: 201 }); 
 }));
 
 //Get favourites
