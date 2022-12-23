@@ -37,72 +37,67 @@ describe("Movies endpoint", () => {
     api.close(); // Release PORT 8080
   });
   describe("GET /api/movies/tmdb/discover ", () => {
-    it("should return 20 movies and a status 200", (done) => {
-      request(api)
+    it("should return 20 movies and a status 200", () => {
+      return request(api)
         .get("/api/movies/tmdb/discover")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
-        .end((err, res) => {
+        .then((res) => {
           expect(res.body.results).to.be.a("array");
           expect(res.body.results.length).to.equal(20);
-          done();
         });
     });
   });
   describe("GET /api/movies/tmdb/upcoming ", () => {
-    it("should return 20 movies and a status 200", (done) => {
-      request(api)
+    it("should return 20 movies and a status 200", () => {
+      return request(api)
         .get("/api/movies/tmdb/upcoming")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
-        .end((err, res) => {
+        .then((res) => {
           expect(res.body.results).to.be.a("array");
           expect(res.body.results.length).to.equal(20);
-          done();
         });
     });
   });
   describe("GET /api/movies/tmdb/now-playing ", () => {
-    it("should return 20 movies and a status 200", (done) => {
-      request(api)
+    it("should return 20 movies and a status 200", () => {
+      return request(api)
         .get("/api/movies/tmdb/now-playing")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
-        .end((err, res) => {
+        .then((res) => {
           expect(res.body.results).to.be.a("array");
           expect(res.body.results.length).to.equal(20);
-          done();
         });
     });
   });
   describe("GET /api/movies/tmdb/top-rated ", () => {
-    it("should return 20 movies and a status 200", (done) => {
-      request(api)
+    it("should return 20 movies and a status 200", () => {
+      return request(api)
         .get("/api/movies/tmdb/top-rated")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
-        .end((err, res) => {
+        .then((res) => {
           expect(res.body.results).to.be.a("array");
           expect(res.body.results.length).to.equal(20);
-          done();
         });
     });
   });
   describe("GET /api/movies/tmdb/trending ", () => {
-    it("should return 20 movies and a status 200", (done) => {
-      request(api)
+    it("should return 20 movies and a status 200", () => {
+      return request(api)
         .get("/api/movies/tmdb/trending")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
-        .end((err, res) => {
+        .then((res) => {
           expect(res.body.results).to.be.a("array");
           expect(res.body.results.length).to.equal(20);
-          done();
         });
     });
   });
