@@ -7,26 +7,27 @@ import movieModel from '../api/movies/movieModel';
 import movies from './movies.js';
 import reviewModel from '../api/reviews/reviewModel'
 import reviews from "./reviews"
+import loglevel from 'loglevel';
 dotenv.config();
 
 // deletes all user documents in collection and inserts test data
 async function loadUsers() {
-  console.log('load user Data');
+  loglevel('load user Data');
   try {
     await userModel.deleteMany();
     await users.forEach(user => userModel.create(user));
-    console.info(`${users.length} users were successfully stored.`);
+    loglevel(`${users.length} users were successfully stored.`);
   } catch (err) {
-    console.error(`failed to Load user Data: ${err}`);
+    loglevel(`failed to Load user Data: ${err}`);
   }
 }
 
 async function loadReviews() {
-  console.log('load review Data');
+  loglevel('load review Data');
   try {
     await reviewModel.deleteMany();
     await reviewModel.collection.insertMany(reviews)
-    .then(console.info(`${reviews.length} reviews were successfully stored.`))
+    .then(loglevel(`${reviews.length} reviews were successfully stored.`))
   } catch (err) {
     console.error(`failed to Load review Data: ${err}`);
   }
@@ -37,7 +38,7 @@ async function loadGenres() {
     try {
       await genreModel.deleteMany();
       await genreModel.collection.insertMany(genres);
-      console.info(`${genres.length} genres were successfully stored.`);
+      loglevel(`${genres.length} genres were successfully stored.`);
     } catch (err) {
       console.error(`failed to Load genre Data: ${err}`);
     }
