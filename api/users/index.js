@@ -19,7 +19,7 @@ router.post('/',asyncHandler( async (req, res, next) => {
       return next();
     }
     if (req.query.action === 'register') {
-      if (req.body.password.match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$")){
+      if (!req.body.password.match("(?=^.{6,}$)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).*")){
         res.status(401).json({code: 401,msg: 'Registration failed. Bad password'});
       }
       else{

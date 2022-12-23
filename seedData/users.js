@@ -1,7 +1,7 @@
 const  users = [
     {
         'username': 'user1',
-        'password': 'test1',
+        'password': 'Test123*',
         'favourites': 
         [
             436270,
@@ -10,7 +10,7 @@ const  users = [
     },
     {
         'username': 'user2',
-        'password': 'test2',
+        'password': 'Test123*',
         'favourites': 
         [
             988233
