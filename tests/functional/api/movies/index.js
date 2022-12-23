@@ -144,7 +144,7 @@ describe("Movies endpoint", () => {
           });
       });
     });
-    describe("GET /api/movies/tmdb/movie/436270/credits", () => {
+    describe("GET /api/movies/tmdb/movie/:id/credits", () => {
       it("should return the list of actors assosiated with a movie", () => {
         return request(api)
           .get(`/api/movies/tmdb/movie/436270/credits`)

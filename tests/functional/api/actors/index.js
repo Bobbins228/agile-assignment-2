@@ -37,7 +37,7 @@ describe("Actors endpoint", () => {
         });
     });
   });
-  describe("GET /api/actors/tmdb/actor/976 ", () => {
+  describe("GET /api/actors/tmdb/actor/:id ", () => {
     it("should return the actor Jason Statham and a status 200", (done) => {
       request(api)
         .get("/api/actors/tmdb/actor/976")
@@ -50,7 +50,7 @@ describe("Actors endpoint", () => {
         });
     });
   });
-  describe("GET /api/actors/tmdb/actor/976/movie-credits ", () => {
+  describe("GET /api/actors/tmdb/actor/:id/movie-credits ", () => {
     it("should return movies Jason Statham has a credit in and a status 200", (done) => {
       request(api)
         .get("/api/actors/tmdb/actor/976/movie-credits")

@@ -4,7 +4,8 @@ const  users = [
         'password': 'test1',
         'favourites': 
         [
-            '436270'
+            436270,
+            64690
         ]
     },
     {
@@ -12,7 +13,7 @@ const  users = [
         'password': 'test2',
         'favourites': 
         [
-            '988233'
+            988233
         ]
     }
 ];
