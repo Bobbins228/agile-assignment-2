@@ -7,9 +7,10 @@
     "build": "npm-run-all clean compile:all",
     "clean": "rimraf ./build && mkdir build",
     "compile:moviemodels": "babel ./api/movies --out-dir build/api/movies",
+    "compile:reviewmodels": "babel ./api/reviews --out-dir build/api/reviews",
     "compile:usermodels": "babel ./api/users --out-dir build/api/users",
     "compile:genremodels": "babel ./api/genres --out-dir build/api/genres",
-    "compile:models": "npm-run-all compile:moviemodels compile:usermodels compile:genremodels",
+    "compile:models": "npm-run-all compile:reviewmodels compile:moviemodels compile:usermodels compile:genremodels",
     "compile:authenticate": "babel ./authenticate --out-dir build/authenticate",
     "compile:seed": "babel ./seedData --out-dir build/seedData",
     "compile:app": "babel index.js --out-dir build/",
@@ -22,7 +23,7 @@
     "postinstall": "rimraf ./build && npm run compile:all",
     "start": "nodemon --exec babel-node index.js",
     "start:prod": "cross-env SEED_DB=true MONGO_DB=mongodb://localhost/test NODE_ENV=test node build/index.js",
-    "test": "cross-env NODE_ENV=test SEED_DB=false mocha"
+    "test": "cross-env NODE_ENV=test SEED_DB=true mocha"
   },
   "author": "Mark Campbell",
   "license": "ISC",
