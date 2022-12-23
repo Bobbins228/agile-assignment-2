@@ -28,6 +28,7 @@ describe("Reviews endpoint", () => {
   afterEach(() => {
     api.close();
   });
+
   describe("GET /api/reviews/movie/:id/reviews ", () => {
     it("should return 2 reviews for Black Adam and a status 200", (done) => {
       request(api)
@@ -44,6 +45,7 @@ describe("Reviews endpoint", () => {
         });
     });
   });
+
   describe("POST /api/reviews/:username/movie/:id/reviews ", () => {
     it("should update the review for Black Adam made by user1 and return status 200", () => {
       return request(api)
@@ -68,6 +70,7 @@ describe("Reviews endpoint", () => {
         });
     });
   });
+
     describe("POST /api/reviews/:username/movie/:id/reviews ", () => {
       it("should add a review for Drive(2011) made by user2 and return status 201", () => {
         return request(api)
