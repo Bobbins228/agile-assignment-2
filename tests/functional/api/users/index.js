@@ -175,6 +175,20 @@ describe("Users endpoint", () => {
         });
       });
     });
+    describe("GET /api/users/:userName/favourites", () => {
+      it("should return user1's favourites and status 200", (done) => {
+        request(api)
+        .get("/api/users/user1/favourites")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.be.a("array");
+          expect(res.body).to.include(64690)
+          done();
+        });
+      });
+    });
     describe("POST /api/users/:userName/favourites", () => {
       it("should add a movie id to user2's favourites and status 201", () => {
         return request(api)
