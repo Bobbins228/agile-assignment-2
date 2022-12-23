@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import loglevel from 'loglevel';
 dotenv.config();
 
 // Connect to database
@@ -10,11 +9,11 @@ mongoose.connect(process.env.MONGO_DB);
 const db = mongoose.connection;
 
 db.on('error', (err) => {
-    loglevel(`database connection error: ${err}`);
+    console.info(`database connection error: ${err}`);
 });
 db.on('disconnected', () => {
-    loglevel('database disconnected');
+    console.info('database disconnected');
 });
 db.once('open', () => {
-    loglevel(`database connected to ${db.name} on ${db.host}`);
+    console.info(`database connected to ${db.name} on ${db.host}`);
 })
