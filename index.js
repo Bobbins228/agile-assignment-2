@@ -8,7 +8,14 @@ import moviesRouter from './api/movies';
 import genreRouter from './api/genres';
 import actorsRouter from './api/actors';
 import reviewsRouter from './api/reviews';
+import loglevel from 'loglevel';
 dotenv.config();
+
+if (process.env.NODE_ENV === 'test') {
+  loglevel.setLevel('warn')
+  } else {
+  loglevel.setLevel('info')
+  }
 
 const errHandler = (err, req, res, next) => {
   /* if the error in development then send stack trace to display whole error,
@@ -33,7 +40,7 @@ app.use('/api/actors', actorsRouter)
 app.use('/api/reviews', reviewsRouter)
 app.use(errHandler);
 let server = app.listen(port, () => {
-  console.info(`Server running at ${port}`);
+  loglevel.info(`Server running at ${port}`);
 });
 module.exports = server
 
